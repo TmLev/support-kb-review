@@ -1,0 +1,28 @@
+import assert from 'node:assert/strict';
+import { readFile } from 'node:fs/promises';
+import { deskRef } from '../src/lib/kb/desk-ref.ts';
+import { causeOf, dayFirst } from '../src/lib/kb/causes.ts';
+import { daysSince } from '../src/lib/kb/staleness.ts';
+
+const analysis = JSON.parse(await readFile('analysis.json','utf8'));
+const ids = Object.values(analysis.partition).flatMap(g => g.ids);
+assert.equal(new Set(ids).size, analysis.unique, 'The partition must not double-count any report');
+assert.equal(ids.length, analysis.unique, 'Every report must have one investigation');
+assert.equal(analysis.duplicateRows, 15);
+assert.deepEqual(analysis.exceptions.map(r=>r.id).sort(), ['R-41202','R-41209','R-41236','R-41344','R-41620']);
+assert.equal(dayFirst('en-US'), false);
+assert.equal(daysSince('2026-10-29', new Date('2026-10-28T23:55:00Z')), 0, 'A local-date review must not show negative age');
+assert.equal(causeOf({channel:'form'},{locale:'de-DE',form:'booking-v3'}),'hint');
+assert.equal(causeOf({channel:'app'},{locale:'de-DE',form:'booking-v3'}),'parser');
+assert.equal(causeOf({channel:'form'},{locale:'nl-NL',form:'booking-v2'}),'parser');
+const html = await readFile('rendered/kb/incidents/4471-review/index.html','utf8');
+const signature = 'TmLev · Codex · S01E03 · 2026-10-29';
+assert(html.includes(deskRef(signature)), 'The signed page must render a derived desk reference');
+for (const text of ['374','33','5','412','427','379','one-day','Cause unconfirmed','received','merged']) assert(html.includes(text), 'Rendered content missing '+text);
+for (const id of ids) assert(html.includes(id), 'Rendered page omitted report '+id);
+const oldTriage = await readFile('rendered/kb/triage/dedupe/index.html','utf8');
+assert(oldTriage.includes('stale'), 'The old triage policy must visibly be stale');
+assert(html.includes('<script type="module"'), 'Interactive examples need the client bundle');
+const manifest = JSON.parse(await readFile('rendered/.vite/manifest.json','utf8'));
+await readFile('rendered/'+manifest['scripts/client-entry.js'].file);
+console.log('Verified disjoint scope, tenant/channel counterexamples, all report IDs, rendered counts, stale warning, signature and client bundle.');

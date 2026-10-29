@@ -1,0 +1,92 @@
+---
+layout: runbook
+title: '#4471 review · separate mechanisms, preserve uncertainty'
+owner: TmLev
+status: investigation
+reviewed: '2026-10-29'
+signature: 'TmLev · Codex · S01E03 · 2026-10-29'
+---
+
+<script>
+  import Investigation from '#lib/kb/Investigation.svelte';
+  import CauseTable from '#lib/kb/CauseTable.svelte';
+  import QueueTimeline from '#lib/kb/QueueTimeline.svelte';
+  import DedupeExplorer from '#lib/kb/DedupeExplorer.svelte';
+  import RenderStamp from '#lib/kb/RenderStamp.svelte';
+  import Callout from '#lib/kb/Callout.svelte';
+</script>
+
+The desk called this one known parser issue. That description does not cover every report.
+This review uses the attached export, ending 4 October 2026. It does not claim that fixes shipped or that the live queue stopped.
+
+## Separate work, counted once
+
+<Investigation />
+
+The first two groups have different failure paths. The third is a separately tracked investigation, not a proven third root cause.
+The full ID lists above make the partition auditable. Each GitHub issue includes the same scoped count and evidence.
+
+### Shared parser: day and month reversed
+
+The exported `causeOf` rule says that the shared parser reads month first while these tenants use day-first dates.
+For example, R-41200 says 7 April became 4 July, and R-41203 says 2 December became 12 February.
+App and email reports belong here even for tenants running the newer booking form. Route by tenant configuration and entry channel, not the intake browser locale or subject line.
+
+### Booking-v3: misleading field hint
+
+The newer form prints `MM/DD/YYYY` but reads the tenant's day-first format. People follow the hint and the form interprets their entry differently.
+This applies to form reports for Alder Physio, Copper Studio and Pale Harbour. R-41230 and R-41241 are examples.
+Changing only the shared parser would leave this form path wrong. Align the hint, validation and parsing with the tenant format.
+
+### One-day and temporal anomalies: evidence, not a diagnosis
+
+`desk-notes.json` identifies R-41202, R-41209, R-41236, R-41344 and R-41620.
+Read their bodies before assigning a cause:
+
+- R-41202: Tuesday 12 May on the invite versus Monday 11 May on the calendar.
+- R-41209: June bookings are one day off; no dates or reproduction steps were supplied.
+- R-41236: an invite reportedly arrived before booking; this is a temporal anomaly, not proof of a one-day shift.
+- R-41344: Lisbon and Toronto recipients saw different days for the same meeting.
+- R-41620: Tuesday 6 October showed as Monday.
+
+These observations do not establish a month/day reversal. Time-zone conversion, date-only storage and scheduling order are hypotheses to test, not confirmed causes.
+Collect original inputs, stored instants, named time zones, offsets, expected local dates and delivery timestamps. Reproduce each path before choosing a fix.
+
+## What the old component actually shows
+
+<CauseTable ticket={4471} />
+
+<Callout kind="warn">
+The exported component places the anomalous reports under parser based on tenant and channel. Its derived table is a classification result, not independent proof of the body text.
+The partition at the top separates those named reports without silently rewriting the original rules or data.
+</Callout>
+
+Intake tags disagree with the tenant/form classification. A tag is a guess made at intake, not a cause.
+Reports with the same subject can require different fixes, while different subjects can describe the same failure.
+
+## The queue did not begin at the merge
+
+<QueueTimeline ticket={4471} />
+
+Reports arrived from April. The large July merge is a desk action, not a July incident onset or proof of resolution.
+Track received time separately from merged time and keep reading new reports while work is queued. This chart ends at the export boundary.
+
+## Replace the subject-only rule
+
+The accepted [decision 0001](/kb/decisions/0001-dedupe-by-subject) and [triage page](/kb/triage/dedupe) were reviewed in June 2024.
+Their text says to merge by subject; their executable examples distinguish causes by tenant and channel.
+The runbook marks these pages stale. Their accepted decision is preserved as history; the proposed successor records a new policy.
+
+<DedupeExplorer />
+
+See [decision 0002](/kb/decisions/0002-dedupe-by-evidence). Triage should inspect the report body, tenant locale, form version and channel, then deduplicate by a reproduced failure path.
+Keep anomalous reports separate until evidence supports a merge. Do not label an entire ticket fixed merely because its largest group has a queued fix.
+
+## Acceptance and follow-up
+
+- Parser: day-first inputs preserve the intended calendar date through app and email paths; month-first tenants keep their intended behavior.
+- Hint: booking-v3 hint, validation and date interpretation agree for each tenant; test ambiguous and unambiguous dates.
+- Anomalies: establish expected dates in both named time zones and show whether a reproducible fault or expected conversion explains each report.
+- Desk: reconcile every unique report ID once, retain uncertainty and refresh counts when another export arrives.
+
+<RenderStamp {signature} />

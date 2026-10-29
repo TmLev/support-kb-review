@@ -1,0 +1,17 @@
+{
+  "name": "mega-s01e03-support-kb",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "analyze": "tsx scripts/analyze.mjs",
+    "build": "npm run analyze && vite build --ssr scripts/render-entry.js --outDir .build && RENDER_CLIENT=1 vite build && node .build/render-entry.js",
+    "check": "tsx scripts/check.mjs"
+  },
+  "devDependencies": {
+    "@sveltejs/vite-plugin-svelte": "^5.1.1",
+    "mdsvex": "^0.12.6",
+    "svelte": "^5.39.0",
+    "tsx": "^4.20.0",
+    "vite": "^6.4.0"
+  }
+}

@@ -1,0 +1,20 @@
+[
+  {
+    "key": "parser",
+    "title": "[4471] Shared parser reverses day/month for day-first tenants \u2014 374 reports",
+    "bodyFile": "issues/parser.md",
+    "count": 374
+  },
+  {
+    "key": "hint",
+    "title": "[4471] Booking-v3 date hint contradicts day-first interpretation \u2014 33 reports",
+    "bodyFile": "issues/hint.md",
+    "count": 33
+  },
+  {
+    "key": "one-day-shift",
+    "title": "[4471] Investigate one-day shifts and temporal anomalies \u2014 5 reports, cause unconfirmed",
+    "bodyFile": "issues/one-day-shift.md",
+    "count": 5
+  }
+]

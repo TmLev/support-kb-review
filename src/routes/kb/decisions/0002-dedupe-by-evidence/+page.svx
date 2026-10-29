@@ -1,0 +1,33 @@
+---
+layout: runbook
+title: '0002 · Deduplicate by evidence and failure path'
+owner: TmLev
+status: proposed
+reviewed: '2026-10-29'
+signature: 'TmLev · Codex · S01E03 · decision 0002 · 2026-10-29'
+---
+
+<script>
+  import RenderStamp from '#lib/kb/RenderStamp.svelte';
+</script>
+
+## Context
+
+Ticket #4471 combines distinct parser and booking-form hint failures, plus unresolved temporal observations.
+The subject-only rule in accepted decision 0001 hid these distinctions. Similar words do not prove a shared cause.
+
+## Proposed decision
+
+Replace subject-only merging with a check of the body, tenant locale, form version and channel, followed by a reproduced failure path.
+Use the subject to find candidates, not to decide the merge. Deduplicate export rows by stable report ID.
+Hold uncertain reports separately and preserve their evidence. Record received time and merge time separately.
+Count from data in a component and attach report IDs to every issue, so another reviewer can reproduce the scope.
+
+## Consequences
+
+Triage takes longer than matching subject text, but different fixes remain visible and new reports can update the right investigation.
+Keep decision 0001 unchanged as history. This proposal takes effect only when the desk accepts it; no approval is claimed here.
+
+See the [incident review](/kb/incidents/4471-review) for the rendered counts and concrete counterexamples.
+
+<RenderStamp {signature} />
