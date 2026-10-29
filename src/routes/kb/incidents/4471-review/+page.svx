@@ -17,7 +17,17 @@ signature: 'TmLev · Codex · S01E03 · 2026-10-29'
 </script>
 
 The desk called this one known parser issue. That description does not cover every report.
-This review uses the attached export, ending 4 October 2026. It does not claim that fixes shipped or that the live queue stopped.
+This review uses the attached export, ending 4 October 2026. The engineering update below is newer than that snapshot; the counts still describe the export, not the live queue.
+
+## Engineering update · 5 October
+
+The course’s live challenge page now reports #4471 closed on 5 October:
+
+- **Parser: fixed** — `fix(dates): parse dd/mm for eu locales`. GitHub issue 1 closes as completed on this evidence.
+- **Hint: won’t fix** — booking-v3 form retired. GitHub issue 2 closes as not planned; retirement is not a shipped hint fix.
+- **Temporal anomalies: unresolved** — the update does not identify their cause or demonstrate their resolution. GitHub issue 3 remains open for the investigation described below.
+
+Source: [the live challenge page](https://hq.mega.dev/challenges/what-it-shows), checked after the first submission. The earlier sections retain the historical export’s evidence and counts. An umbrella ticket’s closure must not turn all outcomes into “fixed.”
 
 ## Separate work, counted once
 

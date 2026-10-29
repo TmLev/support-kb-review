@@ -21,3 +21,9 @@ R-41200, R-41201, R-41203, R-41204, R-41205, R-41206, R-41208, R-41210, R-41211,
 ## KB review
 
 Source: `src/routes/kb/incidents/4471-review/+page.svx`. Rendered desk page: `rendered/kb/incidents/4471-review/index.html`.
+
+## Engineering update, checked after first submission
+
+The live challenge page reports #4471 closed on 5 October: parser FIXED, `fix(dates): parse dd/mm for eu locales`. This issue closes as completed on that engineering evidence, rather than merely on completion of the documentation.
+
+Source: https://hq.mega.dev/challenges/what-it-shows

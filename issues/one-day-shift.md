@@ -25,3 +25,9 @@ R-41202, R-41209, R-41236, R-41344, R-41620
 ## KB review
 
 Source: `src/routes/kb/incidents/4471-review/+page.svx`. Rendered desk page: `rendered/kb/incidents/4471-review/index.html`.
+
+## Engineering update, checked after first submission
+
+The engineering update supplies outcomes for the parser and hint but no diagnosis or resolution for these five observations. This investigation remains open; the earlier closure for documentation handoff was premature.
+
+Source: https://hq.mega.dev/challenges/what-it-shows

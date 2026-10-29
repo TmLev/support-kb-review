@@ -21,3 +21,9 @@ R-41230, R-41241, R-41251, R-41259, R-41262, R-41275, R-41294, R-41305, R-41308,
 ## KB review
 
 Source: `src/routes/kb/incidents/4471-review/+page.svx`. Rendered desk page: `rendered/kb/incidents/4471-review/index.html`.
+
+## Engineering update, checked after first submission
+
+The live challenge page reports #4471 closed on 5 October: hint WON’T FIX because the booking-v3 form was retired. This issue closes as not planned. Retirement removes the form; it is not evidence of a shipped hint fix.
+
+Source: https://hq.mega.dev/challenges/what-it-shows
