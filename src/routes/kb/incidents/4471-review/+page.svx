@@ -4,7 +4,7 @@ title: '#4471 review · separate mechanisms, preserve uncertainty'
 owner: TmLev
 status: investigation
 reviewed: '2026-10-29'
-signature: 'TmLev · Codex · S01E03 · 2026-10-29'
+signature: "v1.eyJzdWIiOiIyMTgzIiwiYXVkIjoiY2hhbGxlbmdlOndoYXQtaXQtc2hvd3MiLCJpYXQiOjE3OTMyMzIxNzYsImV4cCI6MTc5MzMxODU3Nn0.zLlwzRcgH6j-H7JYMb4e5yQE8S1VLacqRAyIvePM4n4"
 ---
 
 <script>

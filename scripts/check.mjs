@@ -16,7 +16,8 @@ assert.equal(causeOf({channel:'form'},{locale:'de-DE',form:'booking-v3'}),'hint'
 assert.equal(causeOf({channel:'app'},{locale:'de-DE',form:'booking-v3'}),'parser');
 assert.equal(causeOf({channel:'form'},{locale:'nl-NL',form:'booking-v2'}),'parser');
 const html = await readFile('rendered/kb/incidents/4471-review/index.html','utf8');
-const signature = 'TmLev · Codex · S01E03 · 2026-10-29';
+const source = await readFile('src/routes/kb/incidents/4471-review/+page.svx','utf8');
+const signature = JSON.parse(source.match(/^signature: (.+)$/m)[1]);
 assert(html.includes(deskRef(signature)), 'The signed page must render a derived desk reference');
 for (const text of ['374','33','5','412','427','379','one-day','Cause unconfirmed','received','merged']) assert(html.includes(text), 'Rendered content missing '+text);
 for (const id of ids) assert(html.includes(id), 'Rendered page omitted report '+id);

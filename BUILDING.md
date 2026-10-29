@@ -12,7 +12,7 @@ The build runs the exported TypeScript classification rules against the tenant d
 
 Open `rendered/4471-review.html` for the standalone incident review, or `rendered/decision-0002.html` for the standalone successor decision. Both contain their client code inline and need no server. The route-shaped versions under `rendered/kb/` use the shared client asset. Relative KB navigation is intended for hosting the route-shaped tree at a site root; standalone files can be read without hosting.
 
-The source review is `src/routes/kb/incidents/4471-review/+page.svx`. Its signature is `TmLev · Codex · S01E03 · 2026-10-29`, and the component derives desk reference `DR-MH96-2TWZ`.
+The source review is `src/routes/kb/incidents/4471-review/+page.svx`. Its signature is the exact course-issued start ticket, as the challenge requires, and the component derives the desk reference from it. The `owner` field identifies the human author separately.
 
 The exported classifier assigns 379 reports to parser and 33 to hint. The review does not silently alter that result: it separately tracks the five reports named in desk notes as unconfirmed temporal anomalies, giving a disjoint issue partition of 374 + 33 + 5. All issue bodies contain their report IDs. This is the 4 October export snapshot, not a live queue total.
 
